@@ -6,4 +6,18 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>bike-service</artifactId>
+  
+  <dependencies>
+  	<dependency>
+  		<groupId>com.infsmall</groupId>
+  		<artifactId>bike-model</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.infsmall</groupId>
+  		<artifactId>bike-repository</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
+  
 </project>

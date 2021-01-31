@@ -1,45 +1,63 @@
 package com.infsmall.ui.commons;
 
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.infsmall.model.Bike;
+import com.infsmall.service.showbikes.ShowBikesService;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
-import com.vaadin.navigator.Navigator;
+import com.vaadin.data.provider.ListDataProvider;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.shared.ui.grid.HeightMode;
 import com.vaadin.spring.annotation.SpringUI;
-import com.vaadin.ui.Button;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Grid;
+import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Panel;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
 
 
 
-@SpringUI(path=BikeMainUI.NAME)
+
+
+@SpringUI(path = "/ui")
 @Title("Bike")
 @Theme("valo")
 public class BikeMainUI extends UI{
 	
-	public static final String NAME = "/ui";
-
+	@Autowired
+	private ShowBikesService showBikesService;
+	
 	@Override
 	protected void init(VaadinRequest request) {
+
+		HorizontalLayout root = new HorizontalLayout();
 		
-		VerticalLayout root = new VerticalLayout();
+		List<Bike> bikes = showBikesService.getAllBikes();
 		
-		Button homeViewButton = new Button("Navigate to home view");
-		Button adminViewButton = new Button("Navigate to admin view");
 		
-		Panel viewContainer = new Panel();
-		Navigator navigator = new Navigator(this, viewContainer);
-		navigator.addView(HomeView.NAME, new HomeView());
-		navigator.addView(AdminView.NAME, new AdminView());
-		navigator.addView("", new HomeView());
-		root.addComponent(new HorizontalLayout(homeViewButton, adminViewButton));
-		root.addComponent(viewContainer);
+		Grid<Bike> grid = new Grid<>(Bike.class);
+		grid.setItems(bikes);
 		
-		homeViewButton.addClickListener(e -> navigator.navigateTo(HomeView.NAME));
-		adminViewButton.addClickListener(e -> navigator.navigateTo(AdminView.NAME));
+		grid.setHeight("200px");
+		grid.setColumns("id", "name", "email");
+		
+		
+		
+		root.addComponent(grid);
+		
+		root.setSizeFull();
+		grid.setSizeFull();
+		root.setExpandRatio(grid, 1);
 		setContent(root);
-		
+
 	}
 	
 	
