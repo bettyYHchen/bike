@@ -33,9 +33,8 @@ public class Bike {
 
 	}
 
-	public Bike(Long id, String name, String email, String phone, String model, String serialNumber,
+	public Bike(String name, String email, String phone, String model, String serialNumber,
 			int purchasePrice, Date purchaseDate) {
-		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.phone = phone;
